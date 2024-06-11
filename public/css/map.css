@@ -1,0 +1,21 @@
+body {
+    background-color: aliceblue;
+}
+
+.mapdiv {
+    width: 70%;
+    height: 50%;
+    margin: auto;
+}
+
+.mapdiv path {
+    fill: darkslategray;
+}
+
+.mapdiv path:hover {
+    fill: darkcyan;
+}
+
+.mapdiv path .wanareja {
+    fill: rgb(66, 214, 214);
+}
