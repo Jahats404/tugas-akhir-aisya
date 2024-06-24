@@ -37,12 +37,6 @@ class PribadiController extends Controller
             // Dapatkan URL gambar yang diunggah
             $url = asset('storage/img-arpri/' . $hashName);
 
-            // Kode Otomatis
-            $pribadi = Apribadi::all();
-            $LastPribadi = Apribadi::orderBy('id_arpri', 'desc')->first();
-            $newIdPribadi = $LastPribadi ? (int) substr($LastPribadi->id_arpri, 1) + 1 : 1;
-            $newIdFormat = 'P' . str_pad($newIdPribadi, 3, '0', STR_PAD_LEFT);
-
             // ID User
             $id = Auth::user()->id;
             $userKK = DB::table('users')

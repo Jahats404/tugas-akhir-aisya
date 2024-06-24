@@ -6,6 +6,13 @@
             <li><a href="{{ route('admin.dashboard') }}" aria-expanded="false"><i
                 class="icon icon-chart-bar-33"></i><span class="nav-text">Dashboard</span></a>
             </li>
+            <li class="nav-label">Arsip Koran</li>
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="icon icon-app-store"></i><span class="nav-text">Arsip</span></a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ route('admin.koran') }}">Olah Arsip Koran</a></li>
+                </ul>
+            </li>
             @endif
             @if (Auth()->user()->role_id == 2)
             <li><a href="{{ route('masyarakat.dashboard') }}" aria-expanded="false"><i
@@ -19,6 +26,13 @@
                     <li><a href="{{ route('masyarakat.arkep') }}">Arsip Kependudukan</a></li>
                     <li><a href="{{ route('masyarakat.arkes') }}">Arsip Kesehatan</a></li>
                     <li><a href="{{ route('masyarakat.arpri') }}">Arsip Pribadi</a></li>
+                </ul>
+            </li>
+            <li class="nav-label">Arsip Koran</li>
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="icon icon-app-store"></i><span class="nav-text">Pengajuan Arsip Koran</span></a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ route('masyarakat.koran-pengajuan') }}">Olah Arsip Koran</a></li>
                 </ul>
             </li>
             @endif

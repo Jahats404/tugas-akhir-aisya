@@ -92,4 +92,25 @@ class User extends Authenticatable implements MustVerifyEmail
         'password_confirmation.required' => 'Konvirmasi password harus diisi.',
         'setuju' => 'Untuk melanjutkan registrasi, anda harus menyutujui segala ketentuan.',
     ];
+
+    public function roles(){
+        return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
+
+    public function apendidikan(){
+        return $this->hasMany(Apendidikan::class, 'user_id','id');
+    }
+    public function akependudukan(){
+        return $this->hasMany(Akependudukan::class, 'user_id','id');
+    }
+    public function akesehatan(){
+        return $this->hasMany(Akesehatan::class, 'user_id','id');
+    }
+    public function apribadi(){
+        return $this->hasMany(Apribadi::class, 'user_id','id');
+    }
+    public function koran()
+    {
+        return $this->hasMany(Koran::class, 'user_id', 'id');
+    }
 }

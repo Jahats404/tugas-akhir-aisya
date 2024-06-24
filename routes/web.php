@@ -7,6 +7,9 @@ use App\Http\Controllers\arsip\PribadiController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\dashboard\DashboardController;
+use App\Http\Controllers\KoranController;
+use App\Http\Controllers\Masyarakat\MasyarakatKoranController;
+use App\Http\Controllers\Petugas\PetugasKoranController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -68,8 +71,14 @@ Route::middleware(['auth'])->group(function () {
             foreach ($routes as $route) {
                 Route::get("/desa-{$route}", [DashboardController::class, $route])->name($route);
             }
-        
-        // =============================================== MAYARAKAT ===============================================================
+        // =============================================== KORAN ===============================================================
+        Route::get('koran', [PetugasKoranController::class, 'index'])->name('koran');
+        Route::post('koran-store', [MasyarakatKoranController::class, 'store'])->name('koran-store');
+        Route::put('koran-update/{id}', [MasyarakatKoranController::class, 'update'])->name('koran-update');
+        Route::delete('koran-destroy/{id}', [MasyarakatKoranController::class, 'destroy'])->name('koran-destroy');
+        Route::post('status/{id}', [PetugasKoranController::class, 'status'])->name('status');
+        Route::get('detail-koran/{id}', [PetugasKoranController::class, 'detail'])->name('koran-detail');
+
     });
 
     Route::prefix('masyarakat')->name('masyarakat.')->middleware('CekUserLogin:2')->group(function () {
@@ -101,6 +110,15 @@ Route::middleware(['auth'])->group(function () {
         Route::post('arpri-store', [PribadiController::class, 'store'])->name('arpri-store');
         Route::put('arpri-update/{id_arpri}', [PribadiController::class, 'update'])->name('arpri-update');
         Route::delete('arpri-destroy/{id_arpri}', [PribadiController::class, 'destroy'])->name('arpri-destroy');
+        // =============================================== KORAN ===============================================================
+        Route::get('koran', [MasyarakatKoranController::class, 'index'])->name('koran-pengajuan');
+        Route::post('koran-store', [MasyarakatKoranController::class, 'store'])->name('koran-pengajuan-store');
+        Route::put('koran-update/{id}', [MasyarakatKoranController::class, 'update'])->name('koran-pengajuan-update');
+        Route::delete('koran-destroy/{id}', [MasyarakatKoranController::class, 'destroy'])->name('koran-pengajuan-destroy');
+        Route::get('detail-koran/{id}', [MasyarakatKoranController::class, 'detail'])->name('koran-pengajuan-detail');
+        // =============================================== DETAIL KORAN ===============================================================
+        Route::post('detail-koran-store', [MasyarakatKoranController::class, 'storeImage'])->name('koran-pengajuan-image-store');
+        Route::delete('koran-detail-destroy/{id}', [MasyarakatKoranController::class, 'destroyImage'])->name('koran-detail-pengajuan-destroy');
     });
 });
 
