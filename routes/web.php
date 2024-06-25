@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\KoranController;
 use App\Http\Controllers\Masyarakat\MasyarakatKoranController;
+use App\Http\Controllers\Petugas\PetugasArpresController;
 use App\Http\Controllers\Petugas\PetugasKoranController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -78,6 +79,8 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('koran-destroy/{id}', [MasyarakatKoranController::class, 'destroy'])->name('koran-destroy');
         Route::post('status/{id}', [PetugasKoranController::class, 'status'])->name('status');
         Route::get('detail-koran/{id}', [PetugasKoranController::class, 'detail'])->name('koran-detail');
+        // =============================================== ARPRES ===============================================================
+        Route::get('arpres', [PetugasArpresController::class, 'index'])->name('arpres');
 
     });
 

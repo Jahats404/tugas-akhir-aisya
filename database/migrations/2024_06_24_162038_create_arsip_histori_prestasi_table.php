@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('arsip_histori_prestasi', function (Blueprint $table) {
             $table->id('id_arpres');
+            $table->unsignedBigInteger('user_id');
             $table->string('nik');
             $table->string('nama');
             $table->string('wilayah');
@@ -20,6 +21,7 @@ return new class extends Migration
             $table->string('deskripsi');
             $table->string('dokumentasi');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

@@ -8,9 +8,16 @@
             </li>
             <li class="nav-label">Arsip Koran</li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                        class="icon icon-app-store"></i><span class="nav-text">Arsip</span></a>
+                        class="icon icon-app-store"></i><span class="nav-text">Arsip Koran</span></a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('admin.koran') }}">Olah Arsip Koran</a></li>
+                </ul>
+            </li>
+            <li class="nav-label">Arsip Prestasi</li>
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="icon icon-app-store"></i><span class="nav-text">Arsip Prestasi</span></a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ route('admin.arpres') }}">Olah Arsip Prestasi</a></li>
                 </ul>
             </li>
             @endif
