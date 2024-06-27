@@ -4,6 +4,7 @@ namespace App\Http\Controllers\arsip;
 
 use App\Http\Controllers\Controller;
 use App\Models\Akependudukan;
+use App\Models\Apendidikan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +15,14 @@ class KependudukanController extends Controller
 {
     public function index()
     {
-        $arkep = Akependudukan::all();
+        $id = Auth::user()->id;
+        $userKK = DB::table('masyarakat')
+                ->select('kk')
+                ->where('nik', $id)
+                ->get();
+        $kk = $userKK[0]->kk;
+
+        $arkep = Akependudukan::where('kk', $kk)->get();
         return view('masyarakat.arkep', compact('arkep'));
     }
 
@@ -25,7 +33,7 @@ class KependudukanController extends Controller
             return redirect()->back()
                     ->withErrors($validator)
                     ->withInput();
-        };
+        }
         try {
     
             $image = $request->file('image');
@@ -43,11 +51,12 @@ class KependudukanController extends Controller
             // ID Masyarakat
             $id = Auth::user()->id;
             // ambil data kk user yang login
-            $userKK = DB::table('users')
+            $userKK = DB::table('masyarakat')
                     ->select('kk')
-                    ->where('id', $id)
+                    ->where('nik', $id)
                     ->get();
             $kk = $userKK[0]->kk;
+            
             // Tambahkan data ke tabel arsip_pendidikan
             $arkep = new Akependudukan;
             $arkep->user_id = $id;

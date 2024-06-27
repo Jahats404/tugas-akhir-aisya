@@ -14,7 +14,14 @@ class KesehatanController extends Controller
 {
     public function index()
     {
-        $arkes = Akesehatan::all();
+        $id = Auth::user()->id;
+        $userKK = DB::table('masyarakat')
+                ->select('kk')
+                ->where('nik', $id)
+                ->get();
+        $kk = $userKK[0]->kk;
+
+        $arkes = Akesehatan::where('kk', $kk)->get();
         return view('masyarakat.arkes', compact('arkes'));
     }
     
@@ -43,10 +50,10 @@ class KesehatanController extends Controller
 
             //id masyarakat
             $id = Auth::user()->id;
-            // ambil data kk dari user yang login
-            $userKK = DB::table('users')
+            // untuk mengambil data kk user yan login
+            $userKK = DB::table('masyarakat')
                     ->select('kk')
-                    ->where('id', $id)
+                    ->where('nik', $id)
                     ->get();
             $kk = $userKK[0]->kk;
             // Tambahkan data ke tabel arsip_pendidikan

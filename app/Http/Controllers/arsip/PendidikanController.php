@@ -4,6 +4,7 @@ namespace App\Http\Controllers\arsip;
 
 use App\Http\Controllers\Controller;
 use App\Models\Apendidikan;
+use App\Models\Masyarakat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,12 +16,14 @@ class PendidikanController extends Controller
     public function index()
     {
         $id = Auth::user()->id;
+        // $id = Masyarakat::where('nik', $idUser)->first()->nik;
         // tampilkan arsip berdasarkan kk yang sama
-        $userKK = DB::table('users')
+        $userKK = DB::table('masyarakat')
                 ->select('kk')
-                ->where('id', $id)
+                ->where('nik', $id)
                 ->get();
         $kk = $userKK[0]->kk;
+
         $arpen = Apendidikan::where('kk', $kk)->get();
         return view('masyarakat.arpen', compact('arpen'));
     }
@@ -46,9 +49,9 @@ class PendidikanController extends Controller
         // ID Masyarakat
         $id = Auth::user()->id;
         // untuk mengambil data kk user yan login
-        $userKK = DB::table('users')
+        $userKK = DB::table('masyarakat')
                 ->select('kk')
-                ->where('id', $id)
+                ->where('nik', $id)
                 ->get();
         $kk = $userKK[0]->kk;
         

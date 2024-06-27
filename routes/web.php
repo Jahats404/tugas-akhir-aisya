@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\KoranController;
+use App\Http\Controllers\Masyarakat\MasyarakatArpresController;
 use App\Http\Controllers\Masyarakat\MasyarakatKoranController;
 use App\Http\Controllers\Petugas\PetugasArpresController;
 use App\Http\Controllers\Petugas\PetugasKoranController;
@@ -81,6 +82,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('detail-koran/{id}', [PetugasKoranController::class, 'detail'])->name('koran-detail');
         // =============================================== ARPRES ===============================================================
         Route::get('arpres', [PetugasArpresController::class, 'index'])->name('arpres');
+        Route::post('arpres-store', [MasyarakatArpresController::class, 'store'])->name('arpres-store');
+        Route::put('arpres-update/{id}', [MasyarakatArpresController::class, 'update'])->name('arpres-update');
+        Route::delete('arpres-destroy/{id}', [MasyarakatArpresController::class, 'destroy'])->name('arpres-destroy');
+        Route::post('status/{id}', [PetugasarpresController::class, 'status'])->name('status');
+        Route::get('detail-arpres/{id}', [PetugasarpresController::class, 'detail'])->name('arpres-detail');
 
     });
 
@@ -118,10 +124,20 @@ Route::middleware(['auth'])->group(function () {
         Route::post('koran-store', [MasyarakatKoranController::class, 'store'])->name('koran-pengajuan-store');
         Route::put('koran-update/{id}', [MasyarakatKoranController::class, 'update'])->name('koran-pengajuan-update');
         Route::delete('koran-destroy/{id}', [MasyarakatKoranController::class, 'destroy'])->name('koran-pengajuan-destroy');
-        Route::get('detail-koran/{id}', [MasyarakatKoranController::class, 'detail'])->name('koran-pengajuan-detail');
         // =============================================== DETAIL KORAN ===============================================================
+        Route::get('detail-koran/{id}', [MasyarakatKoranController::class, 'detail'])->name('koran-pengajuan-detail');
         Route::post('detail-koran-store', [MasyarakatKoranController::class, 'storeImage'])->name('koran-pengajuan-image-store');
         Route::delete('koran-detail-destroy/{id}', [MasyarakatKoranController::class, 'destroyImage'])->name('koran-detail-pengajuan-destroy');
+        // =============================================== ARPRES ===============================================================
+        Route::get('arpres', [MasyarakatArpresController::class, 'index'])->name('arpres');
+        Route::post('arpres-store', [MasyarakatArpresController::class, 'store'])->name('arpres-pengajuan-store');
+        Route::put('arpres-update/{id}', [MasyarakatArpresController::class, 'update'])->name('arpres-pengajuan-update');
+        Route::put('arpres-ajukan/{id}', [MasyarakatArpresController::class, 'ajukan'])->name('arpres-pengajuan-ajukan');
+        Route::delete('arpres-destroy/{id}', [MasyarakatArpresController::class, 'destroy'])->name('arpres-pengajuan-destroy');
+        // =============================================== DETAIL ARPRES ===============================================================
+        Route::get('detail-arpres/{id}', [MasyarakatArpresController::class, 'detail'])->name('arpres-pengajuan-detail');
+        Route::post('detail-arpres-store', [MasyarakatArpresController::class, 'storeImage'])->name('arpres-pengajuan-image-store');
+        Route::delete('arpres-detail-destroy/{id}', [MasyarakatArpresController::class, 'destroyImage'])->name('arpres-detail-pengajuan-destroy');
     });
 });
 

@@ -4,7 +4,7 @@
     <div class="row page-titles mx-0">
         <div class="col-sm-6 p-md-0">
             <div class="welcome-text">
-                <h4>Hi, Selamat Datang {{ Auth::user()->name }}</h4>
+                <h4>Hi, Selamat Datang {{ Auth::user()->masyarakat->name }}</h4>
             </div>
         </div>
         <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
@@ -73,6 +73,28 @@
                             <canvas id="myChart"></canvas>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card">
+                <div class="stat-widget-two card-body">
+                    <div class="stat-content">
+                        <div class="stat-text">Arsip Kependudukan </div>
+                        <div class="stat-digit"></div>
+                    </div>
+                    <h1>{{ $countkependudukan }}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card">
+                <div class="stat-widget-two card-body">
+                    <div class="stat-content">
+                        <div class="stat-text">Arsip Kependudukan </div>
+                        <div class="stat-digit"></div>
+                    </div>
+                    <h1>{{ $countkependudukan }}</h1>
                 </div>
             </div>
         </div>

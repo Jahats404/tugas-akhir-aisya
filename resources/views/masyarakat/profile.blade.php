@@ -52,7 +52,7 @@
                                 <h5 class="f-w-500">Nama <span class="pull-right">:</span>
                                 </h5>
                             </div>
-                            <div class="col-7"><span>{{ Auth()->user()->name }}</span>
+                            <div class="col-7"><span>{{ $user->name }}</span>
                             </div>
                         </div>
                         <div class="row mb-4">
@@ -74,14 +74,14 @@
                                 <h5 class="f-w-500">Email <span class="pull-right">:</span>
                                 </h5>
                             </div>
-                            <div class="col-7"><span>{{ Auth()->user()->email }}</span>
+                            <div class="col-7"><span>{{ $user->user->email }}</span>
                             </div>
                         </div>
                         <div class="row mb-4">
                             <div class="col-5">
                                 <h5 class="f-w-500">No KK <span class="pull-right">:</span></h5>
                             </div>
-                            <div class="col-7"><span>{{ Auth()->user()->kk }}</span>
+                            <div class="col-7"><span>{{ $user->kk }}</span>
                             </div>
                         </div>
                         <div class="row mb-4">
@@ -89,7 +89,7 @@
                                 <h5 class="f-w-500">No NIK <span class="pull-right">:</span>
                                 </h5>
                             </div>
-                            <div class="col-7 "><span>{{ Auth()->user()->nik }}</span>
+                            <div class="col-7 "><span>{{ $user->nik }}</span>
                             </div>
                         </div>
                     </div>
@@ -138,17 +138,17 @@
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label>Email</label>
-                                                        <input type="email" name="email" placeholder="Email" class="form-control" value="{{ $user->email }}">
+                                                        <input type="email" name="email" placeholder="Email" class="form-control" value="{{ $user->user->email }}">
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label>NIK</label>
-                                                        <input type="number" name="nik" disabled placeholder="NIK" class="form-control" value="{{ $user->nik }}">
+                                                        <input type="number" name="nik" disabled placeholder="NIK" class="form-control" value="{{ $user->nik }}" readonly>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label>KK</label>
-                                                        <input type="number" name="kk" disabled placeholder="KK" class="form-control" value="{{ $user->kk }}">
+                                                        <input type="number" name="kk" disabled placeholder="KK" class="form-control" value="{{ $user->kk }}" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">

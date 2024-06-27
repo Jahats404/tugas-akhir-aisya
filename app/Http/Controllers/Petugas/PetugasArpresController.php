@@ -5,14 +5,21 @@ namespace App\Http\Controllers\Petugas;
 use App\Http\Controllers\Controller;
 use App\Models\Arpres;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class PetugasArpresController extends Controller
 {
     public function index()
     {
+        $idUser = Auth::user()->id;
+        $arpresAdmin = Arpres::where('user_id', $idUser)->get();
         $arpres = Arpres::all();
-        return view('admin.olah-arpres', compact('arpres'));
+        // dd($arpres);
+        $arpresDiterima = Arpres::where('status', 'Diterima')->get();
+        $arpresDitolak = Arpres::where('status', 'Ditolak')->get();
+        $arpresTertunda = Arpres::where('status', 'Tertunda')->get();
+        return view('admin.olah-arpres', compact('arpres', 'arpresAdmin', 'arpresDiterima', 'arpresDitolak', 'arpresTertunda'));
     }
 
     public function store(Request $request)

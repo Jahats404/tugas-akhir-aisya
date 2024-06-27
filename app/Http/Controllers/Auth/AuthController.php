@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Masyarakat;
 use App\Models\User;
 use App\Models\Wilayah;
 use Illuminate\Auth\Events\Registered;
@@ -52,12 +53,13 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), User::$rules, User::$messages);
+        $validator = Validator::make($request->all(), Masyarakat::$rules, Masyarakat::$messages);
         if ($validator->fails()) {
             return redirect()->back()
-                    ->withErrors($validator)
-                    ->withInput();
+            ->withErrors($validator)
+            ->withInput();
         }
+        // dd($request);
 
         //untuk mengambil kode desa yang di inputkan
         $kodeDesa = $request->desa;
@@ -105,6 +107,13 @@ class AuthController extends Controller
                 ->get();
         
         $user = User::create([
+            'id' => $request->nik,
+            'email' => $request->email,
+            'role_id' => 2,
+            'password' => Hash::make($request->password),
+        ]);
+
+        $masyarakat = Masyarakat::create([
             'name' => $request->name,
             'email' => $request->email,
             'tanggal_lahir' => $request->tanggal_lahir,

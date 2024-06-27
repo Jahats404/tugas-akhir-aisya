@@ -14,7 +14,14 @@ class PribadiController extends Controller
 {
     public function index()
     {
-        $arpri = Apribadi::all();
+        $id = Auth::user()->id;
+        $userKK = DB::table('masyarakat')
+                ->select('kk')
+                ->where('nik', $id)
+                ->get();
+        $kk = $userKK[0]->kk;
+
+        $arpri = Apribadi::where('kk', $kk)->get();
         return view('masyarakat.arpri', compact('arpri'));
     }
 
@@ -39,10 +46,11 @@ class PribadiController extends Controller
 
             // ID User
             $id = Auth::user()->id;
-            $userKK = DB::table('users')
-                ->select('kk')
-                ->where('id', $id)
-                ->get();
+            // untuk mengambil data kk user yan login
+            $userKK = DB::table('masyarakat')
+                    ->select('kk')
+                    ->where('nik', $id)
+                    ->get();
             $kk = $userKK[0]->kk;
 
             // Tambahkan data ke tabel arsip_pendidikan

@@ -10,7 +10,7 @@
         <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0)">Daftar Arsip</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Arsip Koran</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Arsip Prestasi</a></li>
             </ol>
         </div>
     </div>
@@ -34,7 +34,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($dtKoran as $item)
+                                @foreach ($dtArpres as $item)
                                     <tr>
                                         <td>{{ $item->image }}</td>
                                         <td>
@@ -43,7 +43,7 @@
                                         <td>{{ $item->created_at->format('l, d-m-Y') }}</td>
                                         <td class="d-flex justify-content-center">
                                             <a href="{{ $item->path }}" target="_blank" style="width: 61px; margin-right: 2%" class="btn btn-rounded btn-primary btn-xs">Lihat</a>
-                                            <form style="margin-right: 2%" id="deleteForm{{ $item->id }}" action="{{ route('masyarakat.koran-detail-pengajuan-destroy', ['id' => $item->id]) }}" method="POST">
+                                            <form style="margin-right: 2%" id="deleteForm{{ $item->id }}" action="{{ route('masyarakat.arpres-detail-pengajuan-destroy', ['id' => $item->id]) }}" method="POST">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" style="width: 61px; margin-right: 2%" class="btn btn-rounded btn-danger btn-xs show_delete">Hapus</button>
@@ -78,7 +78,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <a href="{{ route('masyarakat.koran-pengajuan') }}" class="btn btn-primary">Kembali</a>
+                        <a href="{{ route('masyarakat.arpres') }}" class="btn btn-primary">Kembali</a>
                     </div>
                 </div>
             </div>
@@ -89,10 +89,10 @@
     <div class="modal fade" id="modalTambah">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="{{ route('masyarakat.koran-pengajuan-image-store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('masyarakat.arpres-pengajuan-image-store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title">Ajukan Arsip Koran</h5>
+                        <h5 class="modal-title">Ajukan Arsip Prestasi</h5>
                         <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                         </button>
                     </div>

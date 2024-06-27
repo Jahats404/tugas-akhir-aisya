@@ -86,7 +86,7 @@
                                 @foreach ($arkep as $a)
                                     <tr>
                                         <td> {{ $a->kategori }} </td>
-                                        <td> {{ $a->users->name }} </td>
+                                        <td> {{ $a->users->masyarakat->name }} </td>
                                         <td class="text-center">
                                             @if ($a->deskripsi_arkep == null)
                                                 -

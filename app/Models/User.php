@@ -19,6 +19,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'tanggal_lahir',
         'nik',
@@ -32,6 +33,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'desa',
         'remember_token'
     ];
+    public $incrementing = false;
 
     /**
      * The attributes that should be hidden for serialization.
@@ -112,5 +114,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function koran()
     {
         return $this->hasMany(Koran::class, 'user_id', 'id');
+    }
+    public function masyarakat()
+    {
+        return $this->hasOne(Masyarakat::class, 'nik', 'id');
+    }
+    public function arpres()
+    {
+        return $this->hasMany(Arpres::class, 'user_id', 'id');
     }
 }

@@ -42,8 +42,15 @@
                     <li><a href="{{ route('masyarakat.koran-pengajuan') }}">Olah Arsip Koran</a></li>
                 </ul>
             </li>
+            <li class="nav-label">Arsip Prestasi</li>
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="icon icon-app-store"></i><span class="nav-text">Arsip Prestasi</span></a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ route('masyarakat.arpres') }}">Olah Arsip Prestasi</a></li>
+                </ul>
+            </li>
             @endif
-            <li class="nav-label">Components</li>
+            {{-- <li class="nav-label">Components</li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                         class="icon icon-world-2"></i><span class="nav-text">Bootstrap</span></a>
                 <ul aria-expanded="false">
@@ -118,7 +125,7 @@
                     </li>
                     <li><a href="./page-lock-screen.html">Lock Screen</a></li>
                 </ul>
-            </li>
+            </li> --}}
         </ul>
     </div>
 

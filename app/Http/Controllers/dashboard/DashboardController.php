@@ -100,6 +100,8 @@ class DashboardController extends Controller
                 $countpendidikan = Apendidikan::where('user_id', $id)->count();
                 $countkesehatan = Akesehatan::where('user_id', $id)->count();
                 $countpribadi = Apribadi::where('user_id', $id)->count();
+                $countkoran = Apribadi::where('user_id', $id)->count();
+                $countpribadi = Apribadi::where('user_id', $id)->count();
 
                 $data = [
                         'labels' => ['Pendidikan', 'Kesehatan', 'Kependudukan', 'Pribadi'],

@@ -13,8 +13,12 @@ class Arpres extends Model
     protected $primaryKey = 'id_arpres';
     protected $guarded = [];
 
-    public function user()
+    public function users()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+    public function detailArpres()
+    {
+        return $this->hasMany(DetailArpres::class, 'arpres_id', 'id_arpres');
     }
 }

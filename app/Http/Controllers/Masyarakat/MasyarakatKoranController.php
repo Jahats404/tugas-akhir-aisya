@@ -26,7 +26,7 @@ class MasyarakatKoranController extends Controller
             'penerbit' => 'required',
             'deskripsi' => 'required',
             'images' => 'required',
-            'images.*' => 'mimes:jpeg,png,jpg|max:2048',
+            'images.*' => 'mimes:jpeg,png,jpg',
         ];
         
         $messages = [
@@ -34,7 +34,6 @@ class MasyarakatKoranController extends Controller
             'deskripsi.required' => 'Deskripsi tidak boleh kosong!',
             'images.required' => 'Foto tidak boleh kosong!',
             'images.*.mimes' => 'Dokumen harus berformat jpeg, png, atau jpg!',
-            'images.*.max' => 'Ukuran Dokumen maksimal 2MB!',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {

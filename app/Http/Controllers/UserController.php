@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Masyarakat;
 use App\Models\User;
 use App\Models\Wilayah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -15,22 +17,28 @@ class UserController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
+        $id = Auth::user()->id;
+        $user = Masyarakat::findOrFail($id);
+
         return view('masyarakat.profile', compact('user'));
     }
 
     public function update_profile(Request $request){
+        
         $request->validate([
             'name' => 'required',
-            
         ]);
 
         // $arsip = Apendidikan::findOrFail($id_arpen);
-        $profile = User::findOrFail(Auth::user()->id);
+        $id = Auth::user()->id;
+        $profile = Masyarakat::findOrFail($id);
+        $user = User::findOrFail($id);
+
         $profile->name = $request->input('name');
         $profile->tanggal_lahir = $request->input('tanggal_lahir');
         $profile->no_hp = $request->input('no_hp');
-        $profile->email = $request->input('email');
+        $user->email = $request->email;
+        $user->save();
         $profile->save();
     
         return redirect()->back()->with('success', 'Profile berhasil diperbarui.');
@@ -93,7 +101,7 @@ class UserController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $user = User::findOrFail(Auth::user()->id);
+            $user = Masyarakat::findOrFail(Auth::user()->id);
 
             // Hapus foto profil lama jika ada
             if ($user->url) {

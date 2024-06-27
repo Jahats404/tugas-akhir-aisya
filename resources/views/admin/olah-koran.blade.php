@@ -36,7 +36,7 @@
                             <tbody>
                                 @foreach ($koran as $item)
                                     <tr>
-                                        <td>{{ $item->users->name }}</td>
+                                        <td>{{ $item->users->masyarakat->name }}</td>
                                         <td>{{ $item->penerbit }}</td>
                                         <td>{{ $item->deskripsi }}</td>
                                         <td>{{ $item->created_at->format('l, d-m-Y') }}</td>
@@ -206,7 +206,7 @@
                             <tbody>
                                 @foreach ($koranTertunda as $item)
                                     <tr>
-                                        <td>{{ $item->users->name }}</td>
+                                        <td>{{ $item->users->masyarakat->name }}</td>
                                         <td>{{ $item->penerbit }}</td>
                                         <td>{{ $item->deskripsi }}</td>
                                         <td>{{ $item->created_at->format('l, d-m-Y') }}</td>
