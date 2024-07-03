@@ -16,8 +16,14 @@ class MasyarakatArpresController extends Controller
     {
         $user = Auth::user()->id;
         $arpres = Arpres::where('user_id', $user)->get();
+        $arpresDiterima = Arpres::where('user_id', $user)
+            ->where('status', 'Diterima')
+            ->get();
+        $arpresDitolak = Arpres::where('user_id', $user)
+            ->where('status', 'Ditolak')
+            ->get();
 
-        return view('masyarakat.olah-arpres', compact('arpres'));
+        return view('masyarakat.olah-arpres', compact('arpres', 'arpresDiterima', 'arpresDitolak'));
     }
 
     public function store(Request $request)

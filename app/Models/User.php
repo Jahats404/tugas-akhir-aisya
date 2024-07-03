@@ -111,13 +111,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function apribadi(){
         return $this->hasMany(Apribadi::class, 'user_id','id');
     }
-    public function koran()
-    {
-        return $this->hasMany(Koran::class, 'user_id', 'id');
-    }
     public function masyarakat()
     {
         return $this->hasOne(Masyarakat::class, 'nik', 'id');
+    }
+    public function petugasarpus()
+    {
+        return $this->hasOne(PetugasArpus::class, 'nik', 'id');
+    }
+    public function koran()
+    {
+        return $this->hasMany(Koran::class, 'user_id', 'id');
     }
     public function arpres()
     {

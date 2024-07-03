@@ -50,6 +50,7 @@
                                             @endif
                                         </td>
                                         <td class="d-flex justify-content-center">
+                                            <button type="button" class="btn btn-primary btn-rounded btn-xs" style="margin-right: 2%" data-toggle="modal" data-target=".bd-example-modal-lg-{{ $item->id }}">Lihat</button>
                                             <button type="button" style="width: 61px; margin-right: 2%" data-toggle="modal" data-target="#editModal{{ $item->id }}" class="btn btn-rounded btn-info btn-xs">Edit</button>
                                             <form style="margin-right: 2%" id="deleteForm{{ $item->id }}" action="{{ route('masyarakat.koran-pengajuan-destroy', ['id' => $item->id]) }}" method="POST">
                                                 @csrf
@@ -84,6 +85,354 @@
                                             });
                                         });
                                     </script>
+
+                                    {{-- Modal Carousel --}}
+                                    <div class="modal fade bd-example-modal-lg-{{ $item->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Detail Koran</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="card">
+                                                        <div class="card-body p-4">
+                                                            <div id="carouselExampleIndicators-{{ $item->id }}" class="carousel slide" data-ride="carousel">
+                                                                <ol class="carousel-indicators">
+                                                                    @foreach ($item->detailKoran as $index => $dt)
+                                                                        <li data-target="#carouselExampleIndicators-{{ $item->id }}" data-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}"></li>
+                                                                    @endforeach
+                                                                </ol>
+                                                                <div class="carousel-inner">
+                                                                    @foreach ($item->detailKoran as $index => $dt)
+                                                                        <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                                                                            <img class="d-block w-100" src="{{ $dt->path }}" alt="Slide {{ $index + 1 }}">
+                                                                        </div>
+                                                                    @endforeach
+                                                                </div>
+                                                                <a class="carousel-control-prev" href="#carouselExampleIndicators-{{ $item->id }}" data-slide="prev">
+                                                                    <span class="carousel-control-prev-icon"></span>
+                                                                    <span class="sr-only">Previous</span>
+                                                                </a>
+                                                                <a class="carousel-control-next" href="#carouselExampleIndicators-{{ $item->id }}" data-slide="next">
+                                                                    <span class="carousel-control-next-icon"></span>
+                                                                    <span class="sr-only">Next</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Modal Edit -->
+                                    <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editModalLabel{{ $item->id }}">Edit Arsip</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="{{ route('masyarakat.koran-pengajuan-update', ['id' => $item->id]) }}" method="POST" enctype="multipart/form-data">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="form-group">
+                                                            <label>Penerbit</label>
+                                                            <input type="text" class="form-control @error('penerbit') is-invalid @enderror" name="penerbit" id="penerbit" value="{{ $item->penerbit }}">
+                                                            @error('penerbit')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Deskripsi:</label>
+                                                            <textarea name="deskripsi" placeholder="Isi Deskripsi" class="form-control">{{ $item->deskripsi }}</textarea>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6 col-xxl-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Arsip Koran Diterima</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table text-dark table-responsive-sm display nowrap" id="example2" style="min-width: 845px">
+                            <thead>
+                                <tr>
+                                    <th>penerbit</th>
+                                    <th>deskripsi</th>
+                                    <th>Tanggal Upload</th>
+                                    <th>Status</th>
+                                    <th class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($koranDiterima as $item)
+                                    <tr>
+                                        <td>{{ $item->penerbit }}</td>
+                                        <td>{{ $item->deskripsi }}</td>
+                                        <td>{{ $item->created_at->format('l, d-m-Y') }}</td>
+                                        <td>
+                                            @if ($item->status == 'Tertunda')
+                                            <a href="javascript:void()" class="badge badge-rounded badge-outline-warning">{{ $item->status }}</a>
+                                            @elseif ($item->status == 'Ditolak')
+                                            <a href="javascript:void()" class="badge badge-rounded badge-outline-danger">{{ $item->status }}</a>
+                                            @elseif ($item->status == 'Diterima')
+                                            <a href="javascript:void()" class="badge badge-rounded badge-outline-success">{{ $item->status }}</a>
+                                            @endif
+                                        </td>
+                                        <td class="d-flex justify-content-center">
+                                            <button type="button" class="btn btn-primary btn-rounded btn-xs" style="margin-right: 2%" data-toggle="modal" data-target=".bd-example-modal-lg-{{ $item->id }}">Lihat</button>
+                                            <button type="button" style="width: 61px; margin-right: 2%" data-toggle="modal" data-target="#editModal{{ $item->id }}" class="btn btn-rounded btn-info btn-xs">Edit</button>
+                                            <form style="margin-right: 2%" id="deleteForm{{ $item->id }}" action="{{ route('masyarakat.koran-pengajuan-destroy', ['id' => $item->id]) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" style="width: 61px; margin-right: 2%" class="btn btn-rounded btn-danger btn-xs show_delete">Hapus</button>
+                                            </form>
+                                            <a href="{{ route('masyarakat.koran-pengajuan-detail', ['id' => $item->id]) }}" style="width: 61px" class="btn btn-rounded btn-success btn-xs">Detail</a>
+                                        </td>
+                                    </tr>
+
+                                    {{-- VALIDASI DELETE --}}
+                                    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+                                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                    <script>
+                                        $(document).ready(function(){
+                                            $('#deleteForm{{ $item->id }}').submit(function(e){
+                                                e.preventDefault();
+                                                Swal.fire({
+                                                    title: 'Apakah Anda yakin?',
+                                                    text: "Anda tidak akan dapat mengembalikan ini!",
+                                                    icon: 'warning',
+                                                    showCancelButton: true,
+                                                    confirmButtonColor: '#3085d6',
+                                                    cancelButtonColor: '#d33',
+                                                    confirmButtonText: 'Ya, hapus saja!'
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        // Submit form manually
+                                                        this.submit();
+                                                    }
+                                                });
+                                            });
+                                        });
+                                    </script>
+
+                                    {{-- Modal Carousel --}}
+                                    <div class="modal fade bd-example-modal-lg-{{ $item->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Detail Koran</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="card">
+                                                        <div class="card-body p-4">
+                                                            <div id="carouselExampleIndicators-{{ $item->id }}" class="carousel slide" data-ride="carousel">
+                                                                <ol class="carousel-indicators">
+                                                                    @foreach ($item->detailKoran as $index => $dt)
+                                                                        <li data-target="#carouselExampleIndicators-{{ $item->id }}" data-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}"></li>
+                                                                    @endforeach
+                                                                </ol>
+                                                                <div class="carousel-inner">
+                                                                    @foreach ($item->detailKoran as $index => $dt)
+                                                                        <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                                                                            <img class="d-block w-100" src="{{ $dt->path }}" alt="Slide {{ $index + 1 }}">
+                                                                        </div>
+                                                                    @endforeach
+                                                                </div>
+                                                                <a class="carousel-control-prev" href="#carouselExampleIndicators-{{ $item->id }}" data-slide="prev">
+                                                                    <span class="carousel-control-prev-icon"></span>
+                                                                    <span class="sr-only">Previous</span>
+                                                                </a>
+                                                                <a class="carousel-control-next" href="#carouselExampleIndicators-{{ $item->id }}" data-slide="next">
+                                                                    <span class="carousel-control-next-icon"></span>
+                                                                    <span class="sr-only">Next</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Modal Edit -->
+                                    <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editModalLabel{{ $item->id }}">Edit Arsip</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="{{ route('masyarakat.koran-pengajuan-update', ['id' => $item->id]) }}" method="POST" enctype="multipart/form-data">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="form-group">
+                                                            <label>Penerbit</label>
+                                                            <input type="text" class="form-control @error('penerbit') is-invalid @enderror" name="penerbit" id="penerbit" value="{{ $item->penerbit }}">
+                                                            @error('penerbit')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Deskripsi:</label>
+                                                            <textarea name="deskripsi" placeholder="Isi Deskripsi" class="form-control">{{ $item->deskripsi }}</textarea>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6 col-xxl-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Arsip Koran Ditolak</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table text-dark table-responsive-sm display nowrap" id="example1" style="min-width: 845px">
+                            <thead>
+                                <tr>
+                                    <th>penerbit</th>
+                                    <th>deskripsi</th>
+                                    <th>Tanggal Upload</th>
+                                    <th>Status</th>
+                                    <th class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($koranDitolak as $item)
+                                    <tr>
+                                        <td>{{ $item->penerbit }}</td>
+                                        <td>{{ $item->deskripsi }}</td>
+                                        <td>{{ $item->created_at->format('l, d-m-Y') }}</td>
+                                        <td>
+                                            @if ($item->status == 'Tertunda')
+                                            <a href="javascript:void()" class="badge badge-rounded badge-outline-warning">{{ $item->status }}</a>
+                                            @elseif ($item->status == 'Ditolak')
+                                            <a href="javascript:void()" class="badge badge-rounded badge-outline-danger">{{ $item->status }}</a>
+                                            @elseif ($item->status == 'Diterima')
+                                            <a href="javascript:void()" class="badge badge-rounded badge-outline-success">{{ $item->status }}</a>
+                                            @endif
+                                        </td>
+                                        <td class="d-flex justify-content-center">
+                                            <button type="button" class="btn btn-primary btn-rounded btn-xs" style="margin-right: 2%" data-toggle="modal" data-target=".bd-example-modal-lg-{{ $item->id }}">Lihat</button>
+                                            <button type="button" style="width: 61px; margin-right: 2%" data-toggle="modal" data-target="#editModal{{ $item->id }}" class="btn btn-rounded btn-info btn-xs">Edit</button>
+                                            <form style="margin-right: 2%" id="deleteForm{{ $item->id }}" action="{{ route('masyarakat.koran-pengajuan-destroy', ['id' => $item->id]) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" style="width: 61px; margin-right: 2%" class="btn btn-rounded btn-danger btn-xs show_delete">Hapus</button>
+                                            </form>
+                                            <a href="{{ route('masyarakat.koran-pengajuan-detail', ['id' => $item->id]) }}" style="width: 61px" class="btn btn-rounded btn-success btn-xs">Detail</a>
+                                        </td>
+                                    </tr>
+
+                                    {{-- VALIDASI DELETE --}}
+                                    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+                                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                    <script>
+                                        $(document).ready(function(){
+                                            $('#deleteForm{{ $item->id }}').submit(function(e){
+                                                e.preventDefault();
+                                                Swal.fire({
+                                                    title: 'Apakah Anda yakin?',
+                                                    text: "Anda tidak akan dapat mengembalikan ini!",
+                                                    icon: 'warning',
+                                                    showCancelButton: true,
+                                                    confirmButtonColor: '#3085d6',
+                                                    cancelButtonColor: '#d33',
+                                                    confirmButtonText: 'Ya, hapus saja!'
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        // Submit form manually
+                                                        this.submit();
+                                                    }
+                                                });
+                                            });
+                                        });
+                                    </script>
+
+                                    {{-- Modal Carousel --}}
+                                    <div class="modal fade bd-example-modal-lg-{{ $item->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="card">
+                                                        <div class="card-body p-4">
+                                                            <div id="carouselExampleIndicators-{{ $item->id }}" class="carousel slide" data-ride="carousel">
+                                                                <ol class="carousel-indicators">
+                                                                    @foreach ($item->detailKoran as $index => $dt)
+                                                                        <li data-target="#carouselExampleIndicators-{{ $item->id }}" data-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}"></li>
+                                                                    @endforeach
+                                                                </ol>
+                                                                <div class="carousel-inner">
+                                                                    @foreach ($item->detailKoran as $index => $dt)
+                                                                        <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                                                                            <img class="d-block w-100" src="{{ $dt->path }}" alt="Slide {{ $index + 1 }}">
+                                                                        </div>
+                                                                    @endforeach
+                                                                </div>
+                                                                <a class="carousel-control-prev" href="#carouselExampleIndicators-{{ $item->id }}" data-slide="prev">
+                                                                    <span class="carousel-control-prev-icon"></span>
+                                                                    <span class="sr-only">Previous</span>
+                                                                </a>
+                                                                <a class="carousel-control-next" href="#carouselExampleIndicators-{{ $item->id }}" data-slide="next">
+                                                                    <span class="carousel-control-next-icon"></span>
+                                                                    <span class="sr-only">Next</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <!-- Modal Edit -->
                                     <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">

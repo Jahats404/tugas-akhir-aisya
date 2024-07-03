@@ -17,7 +17,15 @@ class MasyarakatKoranController extends Controller
     {
         $user = Auth::user()->id;
         $koran = Koran::where('user_id', $user)->get();
-        return view('masyarakat.olah-koran', compact('koran'));
+        $koranDiterima = Koran::where('user_id', $user)
+                    ->where('status', 'Diterima')
+                    ->get();
+                    
+        $koranDitolak = Koran::where('user_id', $user)
+                    ->where('status', 'Ditolak')
+                    ->get();
+
+        return view('masyarakat.olah-koran', compact('koran', 'koranDiterima', 'koranDitolak'));
     }
 
     public function store(Request $request)

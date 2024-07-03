@@ -7,6 +7,10 @@ use App\Models\Akependudukan;
 use App\Models\Akesehatan;
 use App\Models\Apendidikan;
 use App\Models\Apribadi;
+use App\Models\Arpres;
+use App\Models\Koran;
+use App\Models\Masyarakat;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -20,18 +24,22 @@ class DashboardController extends Controller
                 $countpendidikan = Apendidikan::count();
                 $countkesehatan = Akesehatan::count();
                 $countpribadi = Apribadi::count();
+                $countkoran = Koran::count();
+                $countarpres = Arpres::count();
                 $kota = '33.01';
 
                 $data = [
-                        'labels' => ['Pendidikan', 'Kesehatan', 'Kependudukan', 'Pribadi'],
+                        'labels' => ['Pendidikan', 'Kesehatan', 'Kependudukan', 'Pribadi', 'Koran', 'Prestasi'],
                         'datasets' => [
                                 [
-                                        'data' => [$countkependudukan, $countpendidikan, $countkesehatan, $countpribadi], // Contoh data
+                                        'data' => [$countkependudukan, $countpendidikan, $countkesehatan, $countpribadi, $countkoran, $countarpres], // Contoh data
                                         'backgroundColor' => [
                                                 '#FF6384',
                                                 '#36A2EB',
                                                 '#FFCE56',
-                                                '#4BC0C0'
+                                                '#4BC0C0',
+                                                '#8fce00',
+                                                '#c2c1c2*'
                                         ]
                                 ]
                         ]
@@ -90,7 +98,7 @@ class DashboardController extends Controller
                         ->where('kode', 'like', '%' . $kota . '%')
                         ->whereRaw('length(kode) = 8')
                         ->get();
-                return view('admin.index', compact('data', 'kodeKecamatan', 'totalKecamatan', 'totalDesa', 'namaDesa', 'countkependudukan', 'countpendidikan', 'countkesehatan', 'countpribadi', 'namaKecamatan', 'desa', 'cekJumlah'));
+                return view('admin.index', compact('data', 'kodeKecamatan', 'totalKecamatan', 'totalDesa', 'namaDesa', 'countkependudukan', 'countpendidikan', 'countkesehatan', 'countpribadi', 'namaKecamatan', 'desa', 'cekJumlah', 'countkoran', 'countarpres'));
         }
 
         public function dashboardM()
@@ -100,25 +108,27 @@ class DashboardController extends Controller
                 $countpendidikan = Apendidikan::where('user_id', $id)->count();
                 $countkesehatan = Akesehatan::where('user_id', $id)->count();
                 $countpribadi = Apribadi::where('user_id', $id)->count();
-                $countkoran = Apribadi::where('user_id', $id)->count();
-                $countpribadi = Apribadi::where('user_id', $id)->count();
+                $countkoran = Koran::where('user_id', $id)->count();
+                $countarpres = Arpres::where('user_id', $id)->count();
 
                 $data = [
-                        'labels' => ['Pendidikan', 'Kesehatan', 'Kependudukan', 'Pribadi'],
+                        'labels' => ['Pendidikan', 'Kesehatan', 'Kependudukan', 'Pribadi', 'Koran', 'Prestasi'],
                         'datasets' => [
                                 [
-                                        'data' => [$countkependudukan, $countpendidikan, $countkesehatan, $countpribadi], // Contoh data
+                                        'data' => [$countkependudukan, $countpendidikan, $countkesehatan, $countpribadi, $countkoran, $countarpres], // Contoh data
                                         'backgroundColor' => [
                                                 '#FF6384',
                                                 '#36A2EB',
                                                 '#FFCE56',
-                                                '#4BC0C0'
+                                                '#4BC0C0',
+                                                '#8fce00',
+                                                '#c2c1c2*'
                                         ]
                                 ]
                         ]
                 ];
 
-                return view('masyarakat.index', compact('data', 'countkependudukan', 'countpendidikan', 'countkesehatan', 'countpribadi'));
+                return view('masyarakat.index', compact('data', 'countkependudukan', 'countpendidikan', 'countkesehatan', 'countpribadi', 'countkoran', 'countarpres'));
         }
 
         private function getDesaData($kode)
@@ -138,6 +148,18 @@ class DashboardController extends Controller
                 $namaKecamatan = $ambilNama[0]->nama;
 
                 return compact('desa', 'namaKecamatan');
+        }
+
+        public function totMasyarakat() {
+                $masyarakat = Masyarakat::whereRaw('length(nik) = 16')->get();
+                return view('admin.daftar-masyarakat', compact('masyarakat'));
+        }
+
+        public function destroyMasyarakat(Request $request, $id) {
+                $userID = Masyarakat::findOrFail($id)->delete();
+                $userID = User::findOrFail($id)->delete();
+                return redirect()->back()->with('success', 'Berhasil menghapus Masyarakat');
+
         }
 
         public function adipala()

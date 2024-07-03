@@ -58,7 +58,7 @@ class Masyarakat extends Model
         'setuju' => 'Untuk melanjutkan registrasi, anda harus menyutujui segala ketentuan.',
     ];
 
-    public function user()
+    public function users()
     {
         return $this->belongsTo(User::class, 'nik', 'id');
     }

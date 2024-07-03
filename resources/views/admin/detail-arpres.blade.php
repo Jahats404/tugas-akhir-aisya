@@ -10,7 +10,7 @@
         <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0)">Daftar Arsip</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Arsip Pendidikan</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Arsip Prestasi</a></li>
             </ol>
         </div>
     </div>
@@ -18,11 +18,9 @@
         <div class="col-xl-12 col-xxl-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Detail Arsip Koran</h4>
-                    @if ($cekRole == 'admin')
-                        <!-- Button tambah modal --> 
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">Tambahkan Foto</button>
-                    @endif
+                    <h4 class="card-title">Detail Arsip Prestasi</h4>
+                    <!-- Button tambah modal --> 
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">Tambahkan Foto</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -36,16 +34,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($dtKoran as $item)
+                                @foreach ($dtArpres as $item)
                                     <tr>
                                         <td>{{ $item->image }}</td>
                                         <td>
-                                            <img src="{{ $item->path }}" alt="Foto Koran" class="img-fluid img-3x4 rounded" style="max-width: 50px;">
+                                            <img src="{{ $item->path }}" alt="Foto Mahasiswa" class="img-fluid img-3x4 rounded" style="max-width: 50px;">
                                         </td>
                                         <td>{{ $item->created_at->format('l, d-m-Y') }}</td>
                                         <td class="d-flex justify-content-center">
                                             <a href="{{ $item->path }}" target="_blank" style="width: 61px; margin-right: 2%" class="btn btn-rounded btn-primary btn-xs">Lihat</a>
-                                            <form style="margin-right: 2%" id="deleteForm{{ $item->id }}" action="{{ route('admin.koran-detail-pengajuan-destroy', ['id' => $item->id]) }}" method="POST">
+                                            <form style="margin-right: 2%" id="deleteForm{{ $item->id }}" action="{{ route('admin.arpres-detail-pengajuan-destroy', ['id' => $item->id]) }}" method="POST">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" style="width: 61px; margin-right: 2%" class="btn btn-rounded btn-danger btn-xs show_delete">Hapus</button>
@@ -81,7 +79,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <a href="{{ route('admin.koran') }}" class="btn btn-primary">Kembali</a>
+                        <a href="{{ route('admin.arpres') }}" class="btn btn-primary">Kembali</a>
                     </div>
                 </div>
             </div>
@@ -92,10 +90,10 @@
     <div class="modal fade" id="modalTambah">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="{{ route('admin.koran-pengajuan-image-store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.arpres-pengajuan-image-store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title">Ajukan Arsip Koran</h5>
+                        <h5 class="modal-title">Ajukan Arsip Prestasi</h5>
                         <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                         </button>
                     </div>

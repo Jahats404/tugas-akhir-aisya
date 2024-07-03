@@ -60,7 +60,9 @@ Route::post('/getkecamatan', [AuthController::class, 'getkecamatan'])->name('get
 Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->name('admin.')->middleware('CekUserLogin:1')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'dashboardA'])->name('dashboard');
-
+        // =============================================== MAP ===============================================================
+        Route::get('/daftar-masyarakat',[DashboardController::class, 'totMasyarakat'])->name('daftar-masyarakat');
+        Route::delete('/delete-masyarakat/{id}', [DashboardController::class, 'destroyMasyarakat'])->name('delete-masyarakat');
 
         // =============================================== MAP ===============================================================
         $routes = [
@@ -75,18 +77,24 @@ Route::middleware(['auth'])->group(function () {
             }
         // =============================================== KORAN ===============================================================
         Route::get('koran', [PetugasKoranController::class, 'index'])->name('koran');
-        Route::post('koran-store', [MasyarakatKoranController::class, 'store'])->name('koran-store');
-        Route::put('koran-update/{id}', [MasyarakatKoranController::class, 'update'])->name('koran-update');
-        Route::delete('koran-destroy/{id}', [MasyarakatKoranController::class, 'destroy'])->name('koran-destroy');
-        Route::post('status/{id}', [PetugasKoranController::class, 'status'])->name('status');
+        Route::post('koran-store', [PetugasKoranController::class, 'store'])->name('koran-store');
+        Route::put('koran-update/{id}', [PetugasKoranController::class, 'update'])->name('koran-update');
+        Route::delete('koran-destroy/{id}', [PetugasKoranController::class, 'destroy'])->name('koran-destroy');
+        Route::post('status-koran/{id}', [PetugasKoranController::class, 'status'])->name('status-koran');
+        // =============================================== DETAIL KORAN ===============================================================
         Route::get('detail-koran/{id}', [PetugasKoranController::class, 'detail'])->name('koran-detail');
+        Route::post('detail-koran-store', [PetugasKoranController::class, 'storeImage'])->name('koran-pengajuan-image-store');
+        Route::delete('koran-detail-destroy/{id}', [PetugasKoranController::class, 'destroyImage'])->name('koran-detail-pengajuan-destroy');
         // =============================================== ARPRES ===============================================================
         Route::get('arpres', [PetugasArpresController::class, 'index'])->name('arpres');
-        Route::post('arpres-store', [MasyarakatArpresController::class, 'store'])->name('arpres-store');
-        Route::put('arpres-update/{id}', [MasyarakatArpresController::class, 'update'])->name('arpres-update');
-        Route::delete('arpres-destroy/{id}', [MasyarakatArpresController::class, 'destroy'])->name('arpres-destroy');
-        Route::post('status/{id}', [PetugasarpresController::class, 'status'])->name('status');
+        Route::post('arpres-store', [PetugasArpresController::class, 'store'])->name('arpres-store');
+        Route::put('arpres-update/{id}', [PetugasArpresController::class, 'update'])->name('arpres-update');
+        Route::delete('arpres-destroy/{id}', [PetugasArpresController::class, 'destroy'])->name('arpres-destroy');
+        Route::post('status-arpres/{id}', [PetugasarpresController::class, 'status'])->name('status-arpres');
+        // =============================================== DETAIL ARPRES ===============================================================
         Route::get('detail-arpres/{id}', [PetugasarpresController::class, 'detail'])->name('arpres-detail');
+        Route::post('detail-arpres-store', [PetugasarpresController::class, 'storeImage'])->name('arpres-pengajuan-image-store');
+        Route::delete('arpres-detail-destroy/{id}', [PetugasarpresController::class, 'destroyImage'])->name('arpres-detail-pengajuan-destroy');
 
     });
 

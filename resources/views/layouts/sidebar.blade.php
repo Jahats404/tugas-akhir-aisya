@@ -6,6 +6,9 @@
             <li><a href="{{ route('admin.dashboard') }}" aria-expanded="false"><i
                 class="icon icon-chart-bar-33"></i><span class="nav-text">Dashboard</span></a>
             </li>
+            <li><a href="{{ route('admin.daftar-masyarakat') }}" aria-expanded="false"><i
+                class="icon icon-single-04"></i><span class="nav-text">Daftar Masyarakat</span></a>
+            </li>
             <li class="nav-label">Arsip Koran</li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                         class="icon icon-app-store"></i><span class="nav-text">Arsip Koran</span></a>

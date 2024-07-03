@@ -48,6 +48,11 @@ let dataSet = [
             $(row).addClass('selected')
         }
     });
+    var table = $('#example1').DataTable({
+        createdRow: function(row, data, index) {
+            $(row).addClass('selected')
+        }
+    });
     var table = $('#example2').DataTable({
         createdRow: function(row, data, index) {
             $(row).addClass('selected')

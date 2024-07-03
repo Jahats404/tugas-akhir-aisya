@@ -48,6 +48,7 @@
                                                 @method('delete')
                                                 <button type="submit" style="width: 61px; margin-right: 2%" class="btn btn-rounded btn-danger btn-xs show_delete">Hapus</button>
                                             </form>
+                                            <a href="{{ $item->path }}" download="{{ $item->image }}" style="margin-right: 2%" class="btn btn-rounded btn-success btn-xs">Download</a>
                                         </td>
                                     </tr>
 

@@ -80,10 +80,10 @@
             <div class="card">
                 <div class="stat-widget-two card-body">
                     <div class="stat-content">
-                        <div class="stat-text">Arsip Kependudukan </div>
+                        <div class="stat-text">Arsip Koran </div>
                         <div class="stat-digit"></div>
                     </div>
-                    <h1>{{ $countkependudukan }}</h1>
+                    <h1>{{ $countkoran }}</h1>
                 </div>
             </div>
         </div>
@@ -91,10 +91,10 @@
             <div class="card">
                 <div class="stat-widget-two card-body">
                     <div class="stat-content">
-                        <div class="stat-text">Arsip Kependudukan </div>
+                        <div class="stat-text">Arsip Prestasi </div>
                         <div class="stat-digit"></div>
                     </div>
-                    <h1>{{ $countkependudukan }}</h1>
+                    <h1>{{ $countarpres }}</h1>
                 </div>
             </div>
         </div>

@@ -109,8 +109,8 @@
                                         </td>
                                         <td>{{ $a->created_at->format('l, d-m-Y') }}</td>
                                         <td class="d-flex justify-content-center">
-                                            {{-- <a href="{{ $a->url }}" target="_blank" class="btn"><i class="ti-layout-media-center-alt"></i></a> --}}
-                                            <a href="{{ $a->url }}" target="_blank" style="width: 61px; margin-right: 2%" class="btn btn-rounded btn-primary btn-xs">Lihat</a>
+                                            <a href="{{ $a->url }}" download="{{ $a->nama_arpen }}" style="margin-right: 2%" class="btn btn-rounded btn-success btn-xs">Download</a>
+                                            <a href="{{ $a->url }}" target="_blank" style=" margin-right: 2%" class="btn btn-rounded btn-primary btn-xs">Lihat</a>
                                             {{-- <button type="button" class="btn" data-toggle="modal" data-target="#editModal{{ $a->id_arpen }}" data-bs-toggle="button"><i class="ti-pencil"></i></button> --}}
                                             <button type="button" style="width: 61px; margin-right: 2%" data-toggle="modal" data-target="#editModal{{ $a->id_arpen }}" class="btn btn-rounded btn-info btn-xs">Edit</button>
                                             <form id="deleteForm{{ $a->id_arpen }}" action="{{ route('masyarakat.arpen-destroy', ['id_arpen' => $a->id_arpen]) }}" method="POST">

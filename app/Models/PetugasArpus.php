@@ -21,8 +21,8 @@ class PetugasArpus extends Model
         'desa',
     ];
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class, 'nik', 'id_user');
+        return $this->belongsTo(User::class, 'nik', 'id');
     }
 }

@@ -48,6 +48,7 @@
                                                 @method('delete')
                                                 <button type="submit" style="width: 61px; margin-right: 2%" class="btn btn-rounded btn-danger btn-xs show_delete">Hapus</button>
                                             </form>
+                                            <a href="{{ $item->path }}" download="{{ $item->image }}" style="margin-right: 2%" class="btn btn-rounded btn-success btn-xs">Download</a>
                                         </td>
                                     </tr>
 
@@ -100,7 +101,7 @@
                         <div class="basic-form text-dark">
                             <div class="form-group">
                                 <label class="text-danger">Upload file | jpeg,png,jpg,pdf | max:2MB</label>
-                                <input type="file" name="image" class="form-control @error('images') is-invalid @enderror" placeholder="Pilih File" multiple>
+                                <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" placeholder="Pilih File" multiple>
                                 <div id="extra-file-inputs"></div>
                                 {{-- <button type="button" id="add-file-input" class="btn btn-sm mt-3 ms-auto btn-secondary">Tambah File</button> --}}
                                 @error('image')
