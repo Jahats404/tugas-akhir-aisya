@@ -143,10 +143,10 @@ class PetugasArpresController extends Controller
     public function detail($id)
     {
         $idUser = Arpres::find($id)->user_id;
-        // $user = User::
         $dtArpres = DetailArpres::where('arpres_id', $id)->get();
+        $cekRole = Arpres::find($id)->users->roles->level;
         
-        return view('admin.detail-arpres', compact('dtArpres'));
+        return view('admin.detail-arpres', compact('dtArpres', 'cekRole'));
     }
 
     public function storeImage(Request $request)

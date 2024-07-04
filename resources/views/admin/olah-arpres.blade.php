@@ -19,6 +19,13 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Seluruh Arsip Prestasi</h4>
+                        <form target="_blank" method="post" action="{{ route('admin.export-pdf') }}" class="form-inline d-inline">
+                            @csrf
+                            <input type="month" name="tanggal" id="filterTanggal" required>
+                            <button type="submit" class="btn btn-warning" onclick="openNewPage()"
+                                title="Cetak Nilai" target="_blank">
+                                <i class="fa fa-print"></i> Cetak</button>
+                        </form>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -208,7 +215,14 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Kategori</label>
-                                                            <input type="text" class="form-control @error('kategori') is-invalid @enderror" name="kategori" id="kategori" value="{{ $item->kategori }}">
+                                                            <select name="kategori" class="form-control @error('kategori') is-invalid @enderror">
+                                                                <option value="">-- Pilih Kategori --</option>
+                                                                <option value="Olahraga">Olahraga</option>
+                                                                <option value="Akademik">Akademik</option>
+                                                                <option value="Kesenian">Kesenian</option>
+                                                                <option value="Pengabdian">Pengabdian</option>
+                                                                <option value="Lain - Lain">Lain - Lain</option>
+                                                            </select>
                                                             @error('kategori')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>

@@ -22,7 +22,7 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                    <a href="{{ config('app.url') }}">
+                                    <a href="http://localhost:8000/">
                                         <img src="{{ asset('landing/images/topics/aisya_new.2.3.jpg') }}" class="rounded mx-auto d-block" height="30%" width="30%" alt="">
                                     </a>
                                     <h4 class="text-center mb-4">Masuk ke Akun Anda</h4>

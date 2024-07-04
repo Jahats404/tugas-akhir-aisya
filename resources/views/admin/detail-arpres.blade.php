@@ -19,8 +19,10 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Detail Arsip Prestasi</h4>
-                    <!-- Button tambah modal --> 
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">Tambahkan Foto</button>
+                    @if ($cekRole == 'admin')
+                        <!-- Button tambah modal --> 
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">Tambahkan Foto</button>
+                    @endif
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
