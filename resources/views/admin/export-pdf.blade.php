@@ -72,7 +72,7 @@
     </table>
 
     <div class="summary">
-        <h3>Jumlah Arsip per Kategori</h3>
+        <h3>Jumlah Masyarakat berprestasi per Kategori</h3>
         <ul>
             <li>Kategori Olahraga : {{ $olahraga }}</li>
             <li>Kategori Akademik : {{ $akademik }}</li>

@@ -25,10 +25,10 @@ class PdfExportController extends Controller
         //     ->groupBy('kategori')
         //     ->get();
 
-        $olahraga = Arpres::where('kategori', 'Olahraga')->count();
-        $akademik = Arpres::where('kategori', 'Akademik')->count();
-        $kesenian = Arpres::where('kategori', 'Kesenian')->count();
-        $pengabdian = Arpres::where('kategori', 'Pengabdian')->count();
+        $olahraga = Arpres::where('kategori', 'Olahraga')->where('status', 'Diterima')->count();
+        $akademik = Arpres::where('kategori', 'Akademik')->where('status', 'Diterima')->count();
+        $kesenian = Arpres::where('kategori', 'Kesenian')->where('status', 'Diterima')->count();
+        $pengabdian = Arpres::where('kategori', 'Pengabdian')->where('status', 'Diterima')->count();
 
         $pdf = PDF::loadView('admin.export-pdf', compact('data', 'olahraga','akademik','kesenian','pengabdian'))->setPaper('a4', 'landscape');;
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\arsip\KesehatanController;
 use App\Http\Controllers\arsip\PendidikanController;
 use App\Http\Controllers\arsip\PribadiController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\KoranController;
